@@ -255,9 +255,9 @@ def slicer(settings):
                 xmaxlast = cxsize
                 rysize = cysize
     
-        elif sepfile and svgpos == '2':
-            xdiff = mwidth/(2 * f_scale) - (0.5 * cxsize) - xmin
-            ydiff = mheight/(2 * f_scale) - (0.5 * cysize) - ymin
+        if svgpos == '2':
+            xdiff = mwidth/(2 * f_scale)
+            ydiff = mheight/(2 * f_scale)
                
         if not accuracy:
             svgtext += '<g>\n'
@@ -339,11 +339,12 @@ class OBJECT_PT_Laser_Slicer_Panel(bpy.types.Panel):
         newrow(layout, "Thickness (pixels):", scene.slicer_settings, 'laser_slicer_cut_line')
         newrow(layout, "Separate files:", scene.slicer_settings, 'laser_slicer_separate_files')
 
-        if scene.slicer_settings.laser_slicer_separate_files:
-            newrow(layout, "Cut position:", scene.slicer_settings, 'laser_slicer_svg_position')
+        # if scene.slicer_settings.laser_slicer_separate_files:
+        newrow(layout, "Cut position:", scene.slicer_settings, 'laser_slicer_svg_position')
 
         newrow(layout, "Cut spacing (mm):", scene.slicer_settings, 'laser_slicer_cut_thickness')
         newrow(layout, "SVG polygons:", scene.slicer_settings, 'laser_slicer_accuracy')
+
         newrow(layout, "Export file(s):", scene.slicer_settings, 'laser_slicer_ofile')
 
         if context.active_object and context.active_object.select_get() and context.active_object.type == 'MESH' and context.active_object.data.polygons:
